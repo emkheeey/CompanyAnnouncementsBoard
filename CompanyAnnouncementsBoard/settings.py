@@ -105,3 +105,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+# Add this line to your settings.py
+# In production, use environment variables or secrets management instead
+
+# Generate a key with: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+ENCRYPTION_KEY = 'YD-3uD9wz9aPASOdjfLi4-b9NOv4TeGK2T5iTIlHEHo='  # Replace with your generated key
