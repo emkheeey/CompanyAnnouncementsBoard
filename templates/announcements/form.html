@@ -4,6 +4,22 @@
 <head>
     <title>{{ action }} Announcement</title>
     <link rel="stylesheet" href="{% static 'announcements/style.css' %}">
+    <style>
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -11,7 +27,12 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">{{ action }}</button>
+            <div class="button-container">
+                <button type="submit">{{ action }}</button>
+                {% if action == 'Update' %}
+                <a href="{% url 'announcement-delete-page' form.instance.id %}" class="delete-btn">Delete</a>
+                {% endif %}
+            </div>
         </form>
         <a href="{% url 'announcement-list-page' %}">Back to Announcements</a>
     </div>
