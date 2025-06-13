@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Announcement</title>
+    <link rel="stylesheet" href="{% static 'announcements/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Announcement</h1>
+        <p>Are you sure you want to delete "<strong>{{ announcement.title }}</strong>"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete</button>
+            <a href="{% url 'announcement-list-page' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

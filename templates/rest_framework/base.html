@@ -1,0 +1,12 @@
+{% extends "rest_framework/base.html" %}
+
+{# Override the block that includes the OPTIONS button and make it empty #}
+{% block actions %}
+{% for action in actions %}
+{% if action.name|lower != 'options' %}
+<form class="button-form" action="{{ action.url }}" data-method="{{ action.method }}">
+  <button class="btn btn-primary js-tooltip" title="{{ action.description }}">{{ action.name }}</button>
+</form>
+{% endif %}
+{% endfor %}
+{% endblock actions %}

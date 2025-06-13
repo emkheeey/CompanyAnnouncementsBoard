@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Announcements</h1>
+    
+    <div class="announcements-list">
+        {% for announcement in page_obj %}
+            <div class="announcement">
+                <h2>{{ announcement.title }}</h2>
+                <p>{{ announcement.content|truncatewords:30 }}</p>
+                <p class="date">Posted on: {{ announcement.created_at|date:"F j, Y" }}</p>
+                <a href="{% url 'announcement_detail' announcement.id %}">Read more</a>
+            </div>
+        {% empty %}
+            <p>No announcements available.</p>
+        {% endfor %}
+    </div>
+    
+    {% include "pagination.html" %}
+{% endblock %}

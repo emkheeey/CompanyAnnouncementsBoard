@@ -1,0 +1,19 @@
+{% extends "rest_framework/pagination/numbers.html" %}
+
+{% block content %}
+<div class="pagination">
+    {% if previous_url %}
+        <a class="btn btn-default" href="{{ previous_url }}">Previous</a>
+    {% else %}
+        <button class="btn btn-default" disabled>Previous</button>
+    {% endif %}
+    
+    <span class="current-page">Page {{ current }} of {{ total_pages }}</span>
+    
+    {% if next_url %}
+        <a class="btn btn-default" href="{{ next_url }}">Next</a>
+    {% else %}
+        <button class="btn btn-default" disabled>Next</button>
+    {% endif %}
+</div>
+{% endblock content %}

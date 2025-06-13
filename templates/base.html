@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Company Announcements Board{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Company Announcements Board</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'announcement-list-page' %}">Home</a></li>
+                <li><a href="{% url 'announcement-create-page' %}">Create Announcement</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} Company Announcements Board</p>
+    </footer>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

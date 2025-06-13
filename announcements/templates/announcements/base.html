@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Announcements{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'announcements/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <div class="header-content">
+                <h1>Company Announcements Board</h1>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'announcement-list-page' %}">All Announcements</a></li>
+                        <li><a href="{% url 'announcement-create-page' %}" class="button">Create New</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <form method="get" action="{% url 'announcement-list-page' %}" class="search-form">
+                <input type="text" name="search" placeholder="Search announcements..." value="{{ search|default:'' }}">
+                <button type="submit">Search</button>
+            </form>
+        </header>
+
+        <main>
+            <h2 class="page-title">{% block page_title %}{% endblock %}</h2>
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; {% now "Y" %} Company Announcements Board | <a href="#">About</a> | <a href="#">Contact</a></p>
+        </footer>
+    </div>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

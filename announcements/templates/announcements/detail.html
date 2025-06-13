@@ -1,0 +1,13 @@
+{% load static %}
+{% extends 'announcements/base.html' %}
+
+{% block title %}{{ announcement.title }}{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>{{ announcement.title }}</h2>
+        <p>{{ announcement.message }}</p>
+        <small>Posted by {{ announcement.posted_by }} on {{ announcement.date }}</small>
+    </div>
+    <p><a href="{% url 'announcements-frontend' %}">← Back to all announcements</a></p>
+{% endblock %}

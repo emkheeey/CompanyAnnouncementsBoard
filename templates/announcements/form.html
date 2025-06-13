@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ action }} Announcement</title>
+    <link rel="stylesheet" href="{% static 'announcements/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ action }} Announcement</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{{ action }}</button>
+        </form>
+        <a href="{% url 'announcement-list-page' %}">Back to Announcements</a>
+    </div>
+</body>
+</html>

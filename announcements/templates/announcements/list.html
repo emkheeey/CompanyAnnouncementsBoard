@@ -1,0 +1,16 @@
+{% load static %}
+{% extends 'announcements/base.html' %}
+
+{% block title %}All Announcements{% endblock %}
+
+{% block content %}
+    {% for ann in announcements %}
+        <div class="card">
+            <h2><a href="{% url 'announcement-detail-page' ann.id %}">{{ ann.title }}</a></h2>
+            <p>{{ ann.message|truncatewords:30 }}</p>
+            <small>Posted by {{ ann.posted_by }} on {{ ann.date }}</small>
+        </div>
+    {% empty %}
+        <p>No announcements available.</p>
+    {% endfor %}
+{% endblock %}
