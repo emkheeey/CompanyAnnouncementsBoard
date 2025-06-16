@@ -76,9 +76,9 @@ def encrypt_data(data):
     if not isinstance(data, str):
         data = json.dumps(data)
         
-    key = get_encryption_key()
-    f = Fernet(key.encode())
-    encrypted_data = f.encrypt(data.encode())
+    key = get_encryption_key()  # Get the encryption key
+    f = Fernet(key.encode())    # Create a cipher with the key
+    encrypted_data = f.encrypt(data.encode())  # Use the key to encrypt
     return base64.b64encode(encrypted_data).decode()
 
 def decrypt_data(encrypted_data):
@@ -87,9 +87,9 @@ def decrypt_data(encrypted_data):
         return encrypted_data
         
     try:
-        key = get_encryption_key()
-        f = Fernet(key.encode())
-        decrypted_data = f.decrypt(base64.b64decode(encrypted_data))
+        key = get_encryption_key()  # Get the same key
+        f = Fernet(key.encode())    # Create a cipher with the key
+        decrypted_data = f.decrypt(base64.b64decode(encrypted_data))  # Use the key to decrypt
         data = decrypted_data.decode()
         
         # Try to parse as JSON in case it was a serialized object

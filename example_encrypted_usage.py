@@ -68,13 +68,65 @@ def view_encrypted_data_in_db(user_id):
         print(f"Encrypted personal_info: {row[2]}")
         print(f"Encrypted notes: {row[3]}")
 
+def test_existing_announcement_decryption():
+    """Test decryption using an existing announcement from the database"""
+    try:
+        # Import the standard Announcement model
+        from announcements.models import Announcement
+        
+        # First, check if there are any announcements in the database
+        announcements = Announcement.objects.all()
+        
+        if announcements.exists():
+            # Use the first announcement
+            announcement = announcements.first()
+            print(f"Using existing announcement with ID: {announcement.id}")
+        else:
+            # No announcements exist, so create one
+            announcement = Announcement.objects.create(
+                title="Test Announcement for Encryption",
+                message="This is a test message that will be encrypted in the database.",
+                posted_by="Encryption Test Script"
+            )
+            print(f"Created new announcement with ID: {announcement.id}")
+        
+        print("\nTesting decryption with announcement:")
+        print(f"ID: {announcement.id}")
+        print(f"Title: {announcement.title}")
+        print(f"Posted by: {announcement.posted_by}")
+        print(f"Date: {announcement.date}")
+        
+        # This should be automatically decrypted
+        print(f"Decrypted message: {announcement.message}")
+        
+        # For comparison, get the raw encrypted value from the database
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT message FROM announcements_announcement WHERE id = %s",
+                [str(announcement.id)]
+            )
+            row = cursor.fetchone()
+            if row:
+                print(f"\nRaw encrypted message in database: {row[0][:60]}...")
+        
+        return True
+    except Exception as e:
+        print(f"Error testing decryption: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
 if __name__ == "__main__":
-    print("Creating encrypted records...")
-    user = create_secure_user()
-    announcement = create_secure_announcement()
+    print("Testing decryption of existing data...")
+    test_existing_announcement_decryption()
     
-    print("\nRetrieving and displaying decrypted data...")
-    retrieve_data(user.id, announcement.id)
-    
-    print("\nVerifying data is stored encrypted...")
-    view_encrypted_data_in_db(user.id)
+    # You can comment out the rest if you just want to test decryption
+    # print("\nCreating encrypted records...")
+    # user = create_secure_user()
+    # announcement = create_secure_announcement()
+    # 
+    # print("\nRetrieving and displaying decrypted data...")
+    # retrieve_data(user.id, announcement.id)
+    # 
+    # print("\nVerifying data is stored encrypted...")
+    # view_encrypted_data_in_db(user.id)
