@@ -104,4 +104,3 @@ def decrypt_data(encrypted_data):
     except Exception as e:
         logger.error(f"Decryption error: {str(e)}")
         return None
-#
